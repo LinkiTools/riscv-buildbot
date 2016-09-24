@@ -1,0 +1,12 @@
+buildbot==0.8.14
+buildbot-slave==0.8.14
+decorator==4.0.10
+Jinja2==2.8
+MarkupSafe==0.23
+python-dateutil==2.5.3
+six==1.10.0
+SQLAlchemy==0.7.10
+sqlalchemy-migrate==0.7.2
+Tempita==0.5.2
+Twisted==16.4.1
+zope.interface==4.3.2
