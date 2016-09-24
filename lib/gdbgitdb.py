@@ -1,5 +1,3 @@
-# DB-like with git
-
 from buildbot.status.builder import SUCCESS, WARNINGS, FAILURE, EXCEPTION
 from buildbot.steps.shell import ShellCommand
 from sumfiles import get_web_base
@@ -30,7 +28,7 @@ def switch_to_branch (builder, branch, force_switch = False):
 
     if 'master' not in repo.heads:
         with open (os.path.join (repodir, 'README'), 'w') as f:
-            f.write ("git repo for GDB test results")
+            f.write ("git repo for GCC test results")
         with open (os.path.join (repodir, '.gitignore'), 'w') as f:
             f.write ("*xfails*\n")
         repo.index.add (['README', '.gitignore'])
@@ -44,7 +42,7 @@ def switch_to_branch (builder, branch, force_switch = False):
 
     myhead.checkout (force = force_switch)
 
-class SaveGDBResults (ShellCommand):
+class SaveGCCResults (ShellCommand):
     name = 'save build results'
     description = 'saving build results'
     descriptionDone = 'saved build results'
@@ -75,7 +73,7 @@ class SaveGDBResults (ShellCommand):
 
         if 'master' not in repo.heads:
             with open (os.path.join (repodir, 'README'), 'w') as f:
-                f.write ("git repo for GDB test results")
+                f.write ("git repo for GCC test results")
             with open (os.path.join (repodir, '.gitignore'), 'w') as f:
                 f.write ("*xfail*\n")
             repo.index.add (['README', '.gitignore'])
@@ -89,8 +87,8 @@ class SaveGDBResults (ShellCommand):
 
         if full_tag not in repo.tags:
             myhead.checkout ()
-            repo.index.add (['%s/gdb.sum' % builder,
-                             '%s/gdb.log' % builder,
+            repo.index.add (['%s/gcc.sum' % builder,
+                             '%s/gcc.log' % builder,
                              '%s/baseline' % builder])
             if repo.is_dirty ():
                 repo.index.commit ('Log files for %s -- branch %s' % (full_tag, branch))
@@ -125,7 +123,7 @@ class SaveGDBResults (ShellCommand):
 
         if 'master' not in repo.heads:
             with open (os.path.join (repodir, 'README'), 'w') as f:
-                f.write ("git repo for GDB test results -- %s" % builder)
+                f.write ("git repo for GCC test results -- %s" % builder)
             with open (os.path.join (repodir, '.gitignore'), 'w') as f:
                 f.write ("*xfail*\n")
             repo.index.add (['README', '.gitignore'])
@@ -139,13 +137,13 @@ class SaveGDBResults (ShellCommand):
 
         myhead.checkout ()
         if full_tag not in repo.tags:
-            repo.index.add (['gdb.sum',
-                             'gdb.log',
+            repo.index.add (['gcc.sum',
+                             'gcc.log',
                              'baseline'])
-            if os.path.exists ("%s/previous_gdb.sum" % repodir):
-                repo.index.add (['previous_gdb.sum'])
-            if os.path.exists ("%s/trybuild_gdb.sum" % repodir):
-                repo.index.add (['trybuild_gdb.sum'])
+            if os.path.exists ("%s/previous_gcc.sum" % repodir):
+                repo.index.add (['previous_gcc.sum'])
+            if os.path.exists ("%s/trybuild_gcc.sum" % repodir):
+                repo.index.add (['trybuild_gcc.sum'])
             if repo.is_dirty ():
                 if istrysched and istrysched == 'yes':
                     repo.index.commit ('TRY BUILD: Log files for %s -- branch %s' % (full_tag, branch))

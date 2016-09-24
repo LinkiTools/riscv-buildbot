@@ -1,16 +1,16 @@
-# GDB .sum-fetching command.
+# GCC .sum-fetching command.
 
 from buildbot.status.builder import SUCCESS, WARNINGS, FAILURE, EXCEPTION
 from buildbot.steps.shell import ShellCommand
 from sumfiles import DejaResults, get_web_base
-from gdbgitdb import switch_to_branch
+from gccgitdb import switch_to_branch
 from shutil import copyfile
 
-class CopyOldGDBSumFile (ShellCommand):
-    """Copy the current gdb.sum file into the old_gdb.sum file."""
-    name = "copy gdb.sum file"
-    description = "copying previous gdb.sum file"
-    descriptionDone = "copied previous gdb.sum file"
+class CopyOldGCCSumFile (ShellCommand):
+    """Copy the current gcc.sum file into the old_gcc.sum file."""
+    name = "copy gcc.sum file"
+    description = "copying previous gcc.sum file"
+    descriptionDone = "copied previous gcc.sum file"
     command = [ 'true' ]
 
     def __init__ (self, **kwargs):
@@ -32,17 +32,17 @@ class CopyOldGDBSumFile (ShellCommand):
         switch_to_branch (builder, branch, force_switch = True)
 
         try:
-            copyfile ("%s/%s/gdb.sum" % (wb, builder),
-                      "%s/%s/previous_gdb.sum" % (wb, builder))
+            copyfile ("%s/%s/gcc.sum" % (wb, builder),
+                      "%s/%s/previous_gcc.sum" % (wb, builder))
         except IOError:
             # If the dest file does not exist, ignore
             pass
 
         return SUCCESS
 
-class GdbCatSumfileCommand(ShellCommand):
+class GccCatSumfileCommand(ShellCommand):
     name = 'regressions'
-    command = ['cat', 'gdb.sum']
+    command = ['cat', 'gcc.sum']
 
     def __init__(self, **kwargs):
         ShellCommand.__init__(self, **kwargs)
