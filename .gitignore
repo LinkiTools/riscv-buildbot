@@ -39,3 +39,6 @@ nosetests.xml
 
 # Passwords
 lib/passwords.json
+
+# pyenv
+.python-version
