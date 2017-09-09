@@ -1,15 +1,15 @@
 {
-    "slaves" : [ { "name" : "fedora-x86_64-1", "arch" : "x86_64", "jobs" : "4",
-		   "admin" : "pmatos@linki.tools" },
-		 { "name" : "fedora-x86_64-2", "arch" : "x86_64", "jobs" : "4",
-		   "admin" : "pmatos@linki.tools" }
+    "workers" : [ { "name" : "fedora-x86_64-1", "arch" : "x86_64", "jobs" : "4",
+		    "admin" : "pmatos@linki.tools" },
+		  { "name" : "fedora-x86_64-2", "arch" : "x86_64", "jobs" : "4",
+		    "admin" : "pmatos@linki.tools" }
 	       ],
 
     "builders" : [ { "name" : "Fedora-x86_64-m64", "type" : "Plain_c64t64",
 		     "builddir" : "fedora-x86_64",
 		     "PATH" : "/usr/local/bin:/usr/bin:/bin",
 		     "tags" : [ "fedora", "x86_64", "m64", "MAIL", "TRY" ],
-		     "slavenames" : [ "fedora-x86_64-1", "fedora-x86_64-2" ] }
+		     "workernames" : [ "fedora-x86_64-1", "fedora-x86_64-2" ] }
 		 ],
 
     "schedulers" : [ { "type" : "AnyBranchScheduler", "name" : "master",
