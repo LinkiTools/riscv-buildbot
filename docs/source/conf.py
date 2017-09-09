@@ -39,15 +39,14 @@ templates_path = ['_templates']
 # The suffix(es) of source filenames.
 # You can specify multiple suffix as a list of string:
 #
-# source_suffix = ['.rst', '.md']
-source_suffix = '.rst'
+source_suffix = ['.rst', '.md']
 
 # The master toctree document.
 master_doc = 'index'
 
 # General information about the project.
 project = 'GCC Buildbot'
-copyright = '2017, Paulo Matos'
+copyright = '2017, Linki Tools'
 author = 'Paulo Matos'
 
 # The version info for the project you're documenting, acts as replacement for
@@ -169,4 +168,7 @@ texinfo_documents = [
 ]
 
 
-
+# -- Sources parsers
+source_parsers = {
+   '.md': 'recommonmark.parser.CommonMarkParser',
+}
