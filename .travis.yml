@@ -1,5 +1,8 @@
 language: python
-
+python:
+  - 3.4
+  - 3.5
+  - 3.6
 install:
   - pip install -r requirements.txt
 env:
@@ -14,11 +17,6 @@ jobs:
         - make html
         - cd ..
         - doctr deploy .
-    - stage: test
-      python:
-        - 3.4
-        - 3.5
-        - 3.6
-      script:
-        - ./travis-checkconfig.py
-        - buildbot checkconfig
+script:
+  - ./travis-checkconfig.py
+  - buildbot checkconfig
