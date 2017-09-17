@@ -1,5 +1,5 @@
 {
-    "workers" : [ { "name" : "fedora-x86_64-1", "arch" : "x86_64", "jobs" : "4",
+    "workers" : [ { "name" : "fedora-x86_64-1", "arch" : "x86_64", "jobs" : "8",
 		    "admin" : "pmatos@linki.tools" }
 		],
 
