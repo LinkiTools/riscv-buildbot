@@ -1,4 +1,4 @@
-gcc-buildbot
+gcc-buildbot [![Build Status](https://travis-ci.org/LinkiTools/gcc-buildbot.svg?branch=master)](https://travis-ci.org/LinkiTools/gcc-buildbot)
 ============
 
 gcc buildbot configuration
