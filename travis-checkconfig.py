@@ -5,6 +5,12 @@
 import os
 import json
 
+# Create secrets directory
+SECRETS_DIR='/home/gcc-buildbot/secrets'
+if not os.path.exists(SECRETS_DIR):
+    os.makedirs(SECRETS_DIR)
+
+# Create passwords file
 with open('lib/config.json') as conf:
     data = json.load(conf)
 
