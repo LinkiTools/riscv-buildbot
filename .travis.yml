@@ -14,7 +14,7 @@ jobs:
         - make html
     - stage: deploy-docs
       python: 3.6
-      script: doctr deploy .
+      script: doctr deploy . --built-docs docs/build/html/
     - stage: test
       python:
         - 3.4
