@@ -6,7 +6,7 @@ import os
 import json
 
 # Create secrets directory
-SECRETS_DIR=environ['SECRETS_DIR']
+SECRETS_DIR=os.environ['SECRETS_DIR']
 if not os.path.exists(SECRETS_DIR):
     os.makedirs(SECRETS_DIR)
 
