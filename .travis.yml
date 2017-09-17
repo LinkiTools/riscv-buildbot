@@ -9,8 +9,10 @@ env:
     - secure: "hD9zOzrnApq+2PzRPbRXwBo9ry6x6/jKIy3Kqdb2Nvm9oWNUTmJ9qb2yL0xdp6MUiaCLKknaE7MH8sXu7Qenk6DmVGgKRZLM4VtZwFOEX1+d2XuTXGlgKaHHikTTbgGArwmt2WMWWydZHtjoERB1OCg0hkHPoEAUmjkncOoDpE5T4sIEawkdMCOc3NcWtPGcZ5EIWo2R1RhmuMWdQzNt72S+8EUM6Sci//PH+lXjFUOOzNyvj40WG4i1BqaKNOjPakDx5uSRKqmnI1yK6jnVSz0lMGFijejstyVZfFiHv+JHswR84U6wnGSGLrUuH9+DILrQrFk5c7NUUMGLbU196wN+1eQAa4d5esdTfAS7Zu3pC+1qR9yyT0V9+lz5O0VivFh1lAVqarvoWLoNZXxx1VjQuFNrz5VN/mK/4+CbVqHP9Pc4/ckwJeKPB96yws+T5uHhNOYkPmCY80OkIov6grJbvL/1ekR9v7OMM8XraiSQhhGwLF8EFIh/lrfzcDfVxwDMO5XguWXrsrfj95e14ggdn7xGWUwOyGArjnk4QORnvlcCBYlqwBsfLWZjZivIvTMxmoF1APISIVo/6UMfrdYcgCpNcZXZeRqrr9/KFf7yIOFphJQqOrgmth7tJih/ifd9+YHgXCbBR/3b9Jwj9N14AW/qIOokOAN5Aw+FKkg="
 script:
   - set -e
+  - echo '{ "fedora-x86_64-1": "test-password" }' > lib/passwords.json
   - buildbot checkconfig
   - cd docs
   - make html
   - cd ..
   - doctr deploy .
+  
