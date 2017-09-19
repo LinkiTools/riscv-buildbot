@@ -17,10 +17,10 @@ def extract_properties_jv(rc, stdout, stderr):
             if m:
                 status, value = m.group(1,2)
                 properties['{}-{}'.format(current_group, status)] = int(value)
-        else:
-            m = group_regexp.match(line)
-            if m:
-                path = m.group(1)
-                _, current_group = os.path.split(path)
+        # are we starting another group?
+        m = group_regexp.match(line)
+        if m:
+            path = m.group(1)
+            _, current_group = os.path.split(path)
 
     return properties
