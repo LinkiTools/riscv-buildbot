@@ -1,0 +1,13 @@
+#! /bin/bash
+# Checks if configure has ever been ran and if so, does nothing
+# otherwise it calls configure.
+BASEDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+CONFIGURE="$1"
+CONFIGURE_ARGS="${@:2}"
+
+if [ ! -e "${BASEDIR}/config.status" ]
+then
+    ${CONFIGURE} ${CONFIGURE_ARGS}
+else
+    echo "configure-if: Nothing to be configured."
+fi
