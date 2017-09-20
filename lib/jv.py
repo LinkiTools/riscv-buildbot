@@ -23,4 +23,5 @@ def extract_properties_jv(rc, stdout, stderr):
             path = m.group(1)
             _, current_group = os.path.split(path)
 
+    print('Testsuite extracted properties: {}'.format(properties))
     return properties
