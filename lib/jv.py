@@ -12,12 +12,10 @@ def extract_properties_jv(rc, stdout, stderr):
     group_regexp = re.compile('^(/.+)\.sum$')
     result_regexp = re.compile('^ (FAIL|PASS|XFAIL|KFAIL|XPASS|KPASS|UNTESTED|UNRESOLVED|UNSUPPORTED): ([0-9]+)$')
     for line in stdout.splitlines():
-        print('Line: {}'.format(line))
         if current_group is not None:
             m = result_regexp.match(line)
             if m:
                 status, value = m.group(1,2)
-                print('Found property: {}-{}: {}'.format(current_group, status, value))
                 properties['{}-{}'.format(current_group, status)] = int(value)
         # are we starting another group?
         m = group_regexp.match(line)
@@ -25,5 +23,4 @@ def extract_properties_jv(rc, stdout, stderr):
             path = m.group(1)
             _, current_group = os.path.split(path)
 
-    print('Testsuite extracted properties: {}'.format(properties))
     return properties
