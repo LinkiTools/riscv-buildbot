@@ -8,8 +8,8 @@
     "builders" : [ { "name" : "Fedora-x86_64-m64", "type" : "Plain_c64t64",
 		     "builddir" : "fedora-x86_64",
 		     "PATH" : "/usr/local/bin:/usr/bin:/bin",
-		     "tags" : [ "fedora", "x86_64", "m64", "MAIL", "TRY" ],
-		     "workernames" : [ "fedora-x86_64-1" ] }
+		     "tags" : [ "x86_64", "m64" ],
+		     "workernames" : [ "fedora-x86_64-1", "cf-gcc16-x86_64" ] }
 		 ],
 
     "schedulers" : [ { "type" : "AnyBranchScheduler", "name" : "trunkrel_branch_scheduler",
