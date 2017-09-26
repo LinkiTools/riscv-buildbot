@@ -13,7 +13,7 @@
 		     "builddir" : "fedora-x86_64",
 		     "PATH" : "/usr/local/bin:/usr/bin:/bin",
 		     "tags" : [ "x86_64", "m64" ],
-		     "workernames" : [ "fedora-x86_64-1", "cf-gcc16-x86_64" ] }
+		     "workernames" : [ "fedora-x86_64-1", "cf-gcc16-x86_64", "cf-gcc20-x86_64" ] }
 		 ],
 
     "schedulers" : [ { "type" : "AnyBranchScheduler", "name" : "trunkrel_branch_scheduler",
