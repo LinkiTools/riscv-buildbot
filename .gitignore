@@ -1,7 +1,14 @@
 *.py[cod]
 
-# virtualenv
-bbenv/
+# Temporary files
+*~
+
+# secrets directory
+secrets/
+
+# Logs
+*.log
+twistd*
 
 # C extensions
 *.so
