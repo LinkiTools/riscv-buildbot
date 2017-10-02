@@ -21,6 +21,5 @@
 		     "PATH" : "/usr/local/bin:/usr/bin:/bin",
 		     "tags" : [ "x86_64", "m64", "full" ],
 		     "workernames" : [ "cf-gcc16-x86_64", "cf-gcc20-x86_64", "cf-gcc67-x86_64" ] }
-		 ],
-
+		 ]
 }
