@@ -23,15 +23,4 @@
 		     "workernames" : [ "cf-gcc16-x86_64", "cf-gcc20-x86_64", "cf-gcc67-x86_64" ] }
 		 ],
 
-    "schedulers" : [ { "type" : "AnyBranchScheduler", "name" : "CIScheduler",
-		       "change_filter" : "all_gcc_filter",
-		       "builderNames" : [ "Incremental-x86_64-m64" ]
-		     },
-
-		     { "type" : "AnyBranchScheduler", "name" : "DailyBumpScheduler",
-		       "change_filter" : "all_gcc_filter",
-		       "fileIsImportant" : "ChangeIsDailyBump",
-		       "builderNames" : [ "Full-x86_64-m64" ]
-		     }
-		   ]
 }
