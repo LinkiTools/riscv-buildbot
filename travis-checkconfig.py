@@ -11,7 +11,7 @@ if not os.path.exists(SECRETS_DIR):
     os.makedirs(SECRETS_DIR)
 
 # Create passwords file
-with open('lib/config.json') as conf:
+with open('lib/workers.json') as conf:
     data = json.load(conf)
 
 dummy_pass = 'TESTING_PASS'
