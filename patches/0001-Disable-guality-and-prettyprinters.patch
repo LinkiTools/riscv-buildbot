@@ -1,0 +1,56 @@
+From bf301c9c784799f8ff91d526dcd79795796175b1 Mon Sep 17 00:00:00 2001
+Message-Id: <bf301c9c784799f8ff91d526dcd79795796175b1.1510334713.git.segher@kernel.crashing.org>
+From: Segher Boessenkool <segher@kernel.crashing.org>
+Date: Mon, 26 Oct 2015 20:36:48 +0000
+Subject: [PATCH] Disable guality and prettyprinters
+
+---
+ gcc/testsuite/g++.dg/guality/guality.exp                           | 2 ++
+ gcc/testsuite/gcc.dg/guality/guality.exp                           | 2 ++
+ gcc/testsuite/gfortran.dg/guality/guality.exp                      | 2 ++
+ libstdc++-v3/testsuite/libstdc++-prettyprinters/prettyprinters.exp | 1 +
+ 4 files changed, 7 insertions(+)
+
+diff --git a/gcc/testsuite/g++.dg/guality/guality.exp b/gcc/testsuite/g++.dg/guality/guality.exp
+index 5bffd9d..2156809 100644
+--- a/gcc/testsuite/g++.dg/guality/guality.exp
++++ b/gcc/testsuite/g++.dg/guality/guality.exp
+@@ -1,3 +1,5 @@
++return
++
+ # This harness is for tests that should be run at all optimisation levels.
+ 
+ load_lib g++-dg.exp
+diff --git a/gcc/testsuite/gcc.dg/guality/guality.exp b/gcc/testsuite/gcc.dg/guality/guality.exp
+index d2b8633..f2b40aa 100644
+--- a/gcc/testsuite/gcc.dg/guality/guality.exp
++++ b/gcc/testsuite/gcc.dg/guality/guality.exp
+@@ -1,3 +1,5 @@
++return
++
+ # This harness is for tests that should be run at all optimisation levels.
+ 
+ load_lib gcc-dg.exp
+diff --git a/gcc/testsuite/gfortran.dg/guality/guality.exp b/gcc/testsuite/gfortran.dg/guality/guality.exp
+index 3f96a04..675dd08 100644
+--- a/gcc/testsuite/gfortran.dg/guality/guality.exp
++++ b/gcc/testsuite/gfortran.dg/guality/guality.exp
+@@ -1,3 +1,5 @@
++return
++
+ # This harness is for tests that should be run at all optimisation levels.
+ 
+ load_lib gfortran-dg.exp
+diff --git a/libstdc++-v3/testsuite/libstdc++-prettyprinters/prettyprinters.exp b/libstdc++-v3/testsuite/libstdc++-prettyprinters/prettyprinters.exp
+index 5232e98..59b7cb4 100644
+--- a/libstdc++-v3/testsuite/libstdc++-prettyprinters/prettyprinters.exp
++++ b/libstdc++-v3/testsuite/libstdc++-prettyprinters/prettyprinters.exp
+@@ -1,4 +1,5 @@
+ #   Copyright (C) 2011-2017 Free Software Foundation, Inc.
++return
+ 
+ # This program is free software; you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+-- 
+1.8.3.1
+
