@@ -4,6 +4,12 @@
 		    "admin" : "pmatos@linki.tools" },
 		  { "name" : "cf-gcc20-x86_64", "arch" : "x86_64",
 		    "jobs" : "6",
+		    "admin" : "pmatos@linki.tools" },
+		  { "name" : "cf-gcc75-x86_64", "arch" : "x86_64",
+		    "jobs" : "2",
+		    "admin" : "pmatos@linki.tools" },
+		  { "name" : "cf-gcc76-x86_64", "arch" : "x86_64",
+		    "jobs" : "2",
 		    "admin" : "pmatos@linki.tools" }
 		]
 }
