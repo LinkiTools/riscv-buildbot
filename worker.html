@@ -1,0 +1,356 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Adding a worker &mdash; GCC Buildbot 0.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="GCC Buildbot 0.1 documentation" href="index.html"/>
+        <link rel="prev" title="Features on the current master" href="features.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> GCC Buildbot
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="design.html">Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="master.html">Master deployment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="features.html">Features</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Adding a worker</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#dependencies">Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#compile-farm-setup">Compile Farm Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#registration-of-worker-in-master">Registration of worker in master</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">GCC Buildbot</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Adding a worker</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/worker.md.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="adding-a-worker">
+<span id="adding-a-worker"></span><h1>Adding a worker<a class="headerlink" href="#adding-a-worker" title="Permalink to this headline">¶</a></h1>
+<p>This document explains how to add a new worker to the GCC Buildbot master.</p>
+<div class="section" id="dependencies">
+<span id="dependencies"></span><h2>Dependencies<a class="headerlink" href="#dependencies" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Python 3 (tested with Python 3.6);</li>
+<li>Python virtualenv;</li>
+</ul>
+</div>
+<div class="section" id="compile-farm-setup">
+<span id="compile-farm-setup"></span><h2>Compile Farm Setup<a class="headerlink" href="#compile-farm-setup" title="Permalink to this headline">¶</a></h2>
+<p>The setup in a compile farm machine, due to lack of privileges (and
+some times lack of python3) might look slightly different than a setup
+on your own machine.</p>
+<p>In the compile farm we use <code class="docutils literal"><span class="pre">pyenv</span></code> to install a Python3 release
+(namely <code class="docutils literal"><span class="pre">3.6.2</span></code>) and take it from there.</p>
+<p>From your compile farm home directory:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>~$ curl -L https://raw.githubusercontent.com/pyenv/pyenv-installer/master/bin/pyenv-installer <span class="p">|</span> bash
+</pre></div>
+</div>
+<p>Go ahead and follow the instructions by adding this (accurate at time
+of writing) to your <code class="docutils literal"><span class="pre">.bash_profile</span></code>:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$HOME</span><span class="s2">/.pyenv/bin:</span><span class="nv">$PATH</span><span class="s2">&quot;</span>
+<span class="nb">eval</span> <span class="s2">&quot;</span><span class="k">$(</span>pyenv init -<span class="k">)</span><span class="s2">&quot;</span>
+<span class="nb">eval</span> <span class="s2">&quot;</span><span class="k">$(</span>pyenv virtualenv-init -<span class="k">)</span><span class="s2">&quot;</span>
+</pre></div>
+</div>
+<p>Then source it and update <code class="docutils literal"><span class="pre">pyenv</span></code>.</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>~$ <span class="nb">source</span> .bash_profile
+~$ pyenv update
+~$ pyenv install <span class="m">3</span>.6.2
+~$ pyenv shell <span class="m">3</span>.6.2
+</pre></div>
+</div>
+<p>Make sure that after installing Python there's no warning about
+missing <code class="docutils literal"><span class="pre">bz2</span></code> dependencies. You need this compiled into Python to
+successfully install <code class="docutils literal"><span class="pre">twisted</span></code> later on (a dependency of
+<code class="docutils literal"><span class="pre">buildbot-worker</span></code>). To fix this, on Fedora 26 (for example) you can do
+<code class="docutils literal"><span class="pre">dnf</span> <span class="pre">install</span> <span class="pre">bzip2-devel</span></code>. Afterwards, uninstall and reinstall Python
+<code class="docutils literal"><span class="pre">3.6.2</span></code>.</p>
+<p>From this point onwards we have a Python <code class="docutils literal"><span class="pre">3.6.2</span></code> installation
+working. We can now create a directory for the buildbot worker, create
+a virtual environment to install Python dependencies and edit the
+buildbot information.</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>~$ mkdir gcc-bbworker
+~$ <span class="nb">cd</span> gcc-bbworker
+~/gcc-bbworker$ pyenv virtualenv gcc-bbworker-env
+~/gcc-bbworker$ pyenv activate gcc-bbworker-env
+~/gcc-bbworker$ pip install buildbot-worker<span class="o">==</span><span class="m">0</span>.9.13
+</pre></div>
+</div>
+<p>Choose a name and password for your buildbot. Lets say you chose the
+name <code class="docutils literal"><span class="pre">cf-test-x86_64</span></code> and password <code class="docutils literal"><span class="pre">LDYtYpTisHIO</span></code>, then you would use
+the following command line to create the worker:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>~/gcc-bbworker$ buildbot-worker create-worker -r . gcc-buildbot.linki.tools cf-test-x86_64 LDYtYpTisHIO
+</pre></div>
+</div>
+<p>Now edit <code class="docutils literal"><span class="pre">info/host</span></code> and <code class="docutils literal"><span class="pre">info/admin</span></code>. For reference for
+<code class="docutils literal"><span class="pre">gcc20.fsffrance.org</span></code>, I used at creation time:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>~/gcc-bbworker$ cat info/admin
+Paulo Matos &lt;pmatos@linki.tools&gt;
+~/gcc-bbworker$ cat info/host
+Compile Farm gcc20, Intel Xeon CPU X5670 <span class="m">2</span>.93Ghz. <span class="m">2</span> CPU, <span class="m">12</span> cores, <span class="m">24</span> threads. RAM <span class="m">24105</span> MB. Debian
+</pre></div>
+</div>
+<p>At this point, you need to contact me as specified below to register
+the worker on master.</p>
+<p>Once I confirm the registration of the worker, go ahead and start it.</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="setup">
+<span id="setup"></span><h2>Setup<a class="headerlink" href="#setup" title="Permalink to this headline">¶</a></h2>
+<p>We are first going to create a directory, download some python
+packages into a virtual environment and then create and start our
+buildbot.</p>
+<p>The initial procedure looks like this (with output hidden):</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ mkdir gcc-bbworker
+$ <span class="nb">cd</span> gcc-bbworker
+$ python -m venv bbw-venv
+$ <span class="nb">source</span> bbw-venv/bin/activate
+$ pip install buildbot-worker
+</pre></div>
+</div>
+<p>If all was successful up until here you need now a few details:</p>
+<ul class="simple">
+<li>worker name - choose one which is different from the ones already in
+use (please see existing workers in
+the <a class="reference external" href="http://gcc-buildbot.linki.tools/#/workers">master UI</a>.);</li>
+<li>worker password - generate something random (you'll need to send
+this to me in plain text);</li>
+</ul>
+<p>Now create the buildbot worker proper from the same directory you were
+in with the active virtualenv created above.</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ buildbot-worker create-worker -r . http://gcc-buildbot.linki.tools
+FOO FOOPASS
+</pre></div>
+</div>
+<p>In the example I used <code class="docutils literal"><span class="pre">FOO</span></code> as the worker's name and <code class="docutils literal"><span class="pre">FOOPASS</span></code> as the
+worker's password. At this point edit <code class="docutils literal"><span class="pre">info/admin</span></code> and <code class="docutils literal"><span class="pre">info/host</span></code>
+with useful information --- this will be shown in the master's user
+interface.</p>
+</div>
+<div class="section" id="registration-of-worker-in-master">
+<span id="registration-of-worker-in-master"></span><h2>Registration of worker in master<a class="headerlink" href="#registration-of-worker-in-master" title="Permalink to this headline">¶</a></h2>
+<p>Once you completed worker creation <a class="reference external" href="http://gcc-buildbot.linki.tools/docsmailto:pmatos&#64;linki.tools">send me an email</a>
+with the subject &quot;New buildbot worker&quot;. In the body of the email
+please give me the buildbot name and password you used to the create
+the buildbot above.</p>
+<p>For example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">New</span> <span class="n">buildbot</span><span class="p">:</span>
+<span class="n">name</span><span class="p">:</span> <span class="n">FOO</span>
+<span class="k">pass</span><span class="p">:</span> <span class="n">FOOPASS</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="features.html" class="btn btn-neutral" title="Features on the current master" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, Linki Tools.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
